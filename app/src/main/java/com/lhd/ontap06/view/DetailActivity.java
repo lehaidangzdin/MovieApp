@@ -2,7 +2,6 @@ package com.lhd.ontap06.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -27,7 +26,7 @@ public class DetailActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         detailViewModel = new ViewModelProvider(this).get(DetailViewModel.class);
         getDataFromMainActivity();
-        detailViewModel.getMovieMutableLiveData().observe(this, detailMovie -> {
+        detailViewModel.getDetailMovieMutableLiveData().observe(this, detailMovie -> {
             binding.setItem(detailMovie);
         });
     }
@@ -36,7 +35,7 @@ public class DetailActivity extends AppCompatActivity {
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
         Movie movie = (Movie) bundle.getSerializable("movie");
-        detailViewModel.setMovieData(movie);
+        detailViewModel.getDetailMovie(movie.getId());
         Toast.makeText(this, "" + movie.getTitle(), Toast.LENGTH_SHORT).show();
     }
 

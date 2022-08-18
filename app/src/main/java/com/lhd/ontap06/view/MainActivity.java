@@ -7,8 +7,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.lhd.ontap06.R;
 import com.lhd.ontap06.adapter.ListCategoriesMoviesAdapter;
@@ -36,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         //
         mainViewModel = new MainViewModel(getApplication());
-        mainViewModel.getMovieZip();
         mainViewModel.getZip4MutableLiveData().observe(this, movieResponseMovieResponseMovieResponseMovieResponseModelZip4 -> getNewsZip(movieResponseMovieResponseMovieResponseMovieResponseModelZip4));
     }
 
@@ -44,9 +41,7 @@ public class MainActivity extends AppCompatActivity {
         ListCategoriesMoviesAdapter adapter = new ListCategoriesMoviesAdapter(lsListCategoriesMovies, getApplicationContext(), movie -> {
             goToDetail(movie);
         });
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        binding.rcv.setLayoutManager(manager);
-        binding.rcv.setAdapter(adapter);
+        binding.setAdapter(adapter);
     }
 
     private void goToDetail(Movie movie) {

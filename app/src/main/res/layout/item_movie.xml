@@ -6,6 +6,10 @@
         <variable
             name="item"
             type="com.lhd.ontap06.model.movieModel.Movie" />
+
+        <variable
+            name="iclick"
+            type="com.lhd.ontap06.adapter.MovieAdapter.IOnClickItem" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/gray"
+            android:onClick="@{()->iclick.clickItem(item)}"
             app:cardCornerRadius="5dp">
 
             <ImageView

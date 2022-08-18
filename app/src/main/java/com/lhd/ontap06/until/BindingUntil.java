@@ -1,5 +1,6 @@
 package com.lhd.ontap06.until;
 
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
@@ -11,7 +12,7 @@ public class BindingUntil {
     public static void loadImage(ImageView imageView, String urlToImage) {
         Glide.with(imageView)
                 .load(urlToImage)
-                .centerInside()
                 .into(imageView);
     }
+
 }

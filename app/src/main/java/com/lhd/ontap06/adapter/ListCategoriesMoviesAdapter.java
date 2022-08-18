@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lhd.ontap06.databinding.ItemLstCatogeriesMovieBinding;
@@ -35,30 +34,9 @@ public class ListCategoriesMoviesAdapter extends RecyclerView.Adapter<ListCatego
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final ListCategoriesMovie categoriesMovie = lsMvZip.get(position);
         if (categoriesMovie == null) return;
-
-        holder.itemLstCatogeriesMovieBinding.tvTitle.setText(categoriesMovie.getTitle());
+        holder.itemLstCatogeriesMovieBinding.setItem(categoriesMovie);
         MovieAdapter movieAdapter = new MovieAdapter(categoriesMovie.getLsMovies(), this.callBack);
-        LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
-        holder.itemLstCatogeriesMovieBinding.rcv.setLayoutManager(manager);
-        holder.itemLstCatogeriesMovieBinding.rcv.setAdapter(movieAdapter);
-
-//        holder.itemLstCatogeriesMovieBinding.rcv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//            }
-//
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-//                //Nếu item cuối cùng của layout = với giá trị cuối của recycleView thì ta gọi hàm LoadMore
-//                if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == categoriesMovie.getLsMovies().size() - 1) {
-//                    //bottom of list!
-//                    Log.e("TAGGGGG", "last item: ");
-//                }
-//            }
-//        });
+        holder.itemLstCatogeriesMovieBinding.setAdapter(movieAdapter);
     }
 
     @Override

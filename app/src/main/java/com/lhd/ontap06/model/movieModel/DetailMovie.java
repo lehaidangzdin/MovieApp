@@ -60,7 +60,7 @@ public class DetailMovie {
     private int revenue;
     @SerializedName("runtime")
     @Expose
-    private int runtime;
+    private String runtime;
     @SerializedName("spoken_languages")
     @Expose
     private List<SpokenLanguage> spokenLanguages = null;
@@ -75,7 +75,7 @@ public class DetailMovie {
     private String title;
     @SerializedName("vote_average")
     @Expose
-    private double voteAverage;
+    private String voteAverage;
     @SerializedName("vote_count")
     @Expose
     private int voteCount;
@@ -219,11 +219,12 @@ public class DetailMovie {
         this.revenue = revenue;
     }
 
-    public int getRuntime() {
-        return runtime;
+    public String getRuntime() {
+        String mRuntine = runtime + " minute";
+        return mRuntine;
     }
 
-    public void setRuntime(int runtime) {
+    public void setRuntime(String runtime) {
         this.runtime = runtime;
     }
 
@@ -259,11 +260,12 @@ public class DetailMovie {
         this.title = title;
     }
 
-    public double getVoteAverage() {
-        return voteAverage;
+    public String getVoteAverage() {
+        String mVoteAverage = voteAverage + "/10";
+        return mVoteAverage;
     }
 
-    public void setVoteAverage(double voteAverage) {
+    public void setVoteAverage(String voteAverage) {
         this.voteAverage = voteAverage;
     }
 
@@ -274,4 +276,5 @@ public class DetailMovie {
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
     }
+
 }
