@@ -2,14 +2,12 @@ package com.lhd.ontap06.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.Observable;
-import androidx.databinding.ObservableField;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.lhd.ontap06.R;
@@ -36,16 +34,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
+        //
         mainViewModel = new MainViewModel(getApplication());
-        mainViewModel.getModelZip4ObservableField().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                getNewsZip(mainViewModel.getModelZip4ObservableField());
-            }
-        });
-        mainViewModel.getRepoData().getValue().getMovieZip();
-        //Log.e(TAG, "onCreate: " + mainViewModel.getRepoData().getValue().getMovieZip().getValue());
+        mainViewModel.getMovieZip();
+        mainViewModel.getZip4MutableLiveData().observe(this, movieResponseMovieResponseMovieResponseMovieResponseModelZip4 -> getNewsZip(movieResponseMovieResponseMovieResponseMovieResponseModelZip4));
     }
 
     private void displayMvList(List<ListCategoriesMovie> lsListCategoriesMovies) {
@@ -65,16 +57,16 @@ public class MainActivity extends AppCompatActivity {
         startActivity(in);
     }
 
-    public void getNewsZip(@NonNull ObservableField<ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse>> dataMovie) {
-        if (dataMovie.get() == null) {
+    public void getNewsZip(@NonNull ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse> dataMovie) {
+        if (dataMovie.getRes1() == null) {
             return;
         }
         binding.process.setVisibility(View.GONE);
         lsListCategoriesMovies = new ArrayList<>();
-        lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_POPULAR, dataMovie.get().getRes1().getResults()));
-        lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_NOW_PLAYING, dataMovie.get().getRes2().getResults()));
-        lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_UPCOMING, dataMovie.get().getRes3().getResults()));
-        lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_TOP_RATED, dataMovie.get().getRes4().getResults()));
+        lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_POPULAR, dataMovie.getRes1().getResults()));
+        lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_NOW_PLAYING, dataMovie.getRes2().getResults()));
+        lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_UPCOMING, dataMovie.getRes3().getResults()));
+        lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_TOP_RATED, dataMovie.getRes4().getResults()));
         displayMvList(lsListCategoriesMovies);
     }
 }
