@@ -10,6 +10,8 @@
         <variable
             name="adapter"
             type="com.lhd.ontap06.adapter.ListCategoriesMoviesAdapter" />
+
+
     </data>
 
     <RelativeLayout
@@ -33,7 +35,6 @@
                     android:id="@+id/rcv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/ln"
                     android:adapter="@{adapter}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>

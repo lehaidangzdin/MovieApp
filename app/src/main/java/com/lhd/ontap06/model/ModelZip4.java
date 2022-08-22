@@ -1,6 +1,6 @@
 package com.lhd.ontap06.model;
 
-public class ModelZip4<T,T2,T3,T4> {
+public class ModelZip4<T, T2, T3, T4> {
     private T res1;
     private T2 res2;
     private T3 res3;

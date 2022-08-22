@@ -261,8 +261,7 @@ public class DetailMovie {
     }
 
     public String getVoteAverage() {
-        String mVoteAverage = voteAverage + "/10";
-        return mVoteAverage;
+        return voteAverage.substring(0, 3);
     }
 
     public void setVoteAverage(String voteAverage) {

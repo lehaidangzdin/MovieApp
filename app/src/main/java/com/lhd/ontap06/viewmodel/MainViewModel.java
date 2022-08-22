@@ -12,6 +12,7 @@ import com.lhd.ontap06.constant.Constant;
 import com.lhd.ontap06.model.ModelZip4;
 import com.lhd.ontap06.model.response.MovieResponse;
 import com.lhd.ontap06.network.ApiService;
+import com.lhd.ontap06.network.RetroClient;
 import com.lhd.ontap06.until.Until;
 
 import io.reactivex.rxjava3.core.Observable;
@@ -19,29 +20,18 @@ import io.reactivex.rxjava3.core.Observable;
 public class MainViewModel extends AndroidViewModel {
     private ApiService apiService;
     private static final String TAG = MainViewModel.class.getSimpleName();
-    private int numPage = 1;
-    private boolean isLoading = true;
-
-    public boolean isLoading() {
-        return isLoading;
-    }
-
-    public void setLoading(boolean loading) {
-        isLoading = loading;
-    }
 
     private MutableLiveData<ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse>> zip4MutableLiveData;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
-        this.apiService = Constant.getAPIService();
+        this.apiService = RetroClient.getAPIService();
     }
 
     public MutableLiveData<ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse>> getZip4MutableLiveData() {
         if (zip4MutableLiveData == null) {
             zip4MutableLiveData = new MutableLiveData<>();
             getMovieZip();
-            isLoading = false;
 
         }
         return zip4MutableLiveData;
@@ -54,15 +44,10 @@ public class MainViewModel extends AndroidViewModel {
 
     public void getMovieZip() {
         Until.scheUtils(Observable.zip(getMovie(Constant.POPULAR), getMovie(Constant.UPCOMING), getMovie(Constant.NOW_PLAYING), getMovie(Constant.TOP_RATED),
-                        (mvPopular, mvUpcoming, mvNowplaying, mvToprated) -> {
-                            ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse>
-                                    responseModelZip4 = new ModelZip4<>(mvPopular, mvNowplaying, mvToprated, mvUpcoming);
-                            return responseModelZip4;
-                        }))
+                        (mvPopular, mvUpcoming, mvNowplaying, mvToprated) -> new ModelZip4<>(mvPopular, mvNowplaying, mvToprated, mvUpcoming)))
                 .subscribe(new GetObservable<ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse>>() {
                     @Override
                     public void onSuccess(ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse> result) {
-//                        mainViewModel.getModelZip4ObservableField().set(result);
                         zip4MutableLiveData.setValue(result);
                     }
 
@@ -73,7 +58,9 @@ public class MainViewModel extends AndroidViewModel {
                 });
     }
 
+
     private Observable<MovieResponse> getMovie(String option) {
+        int numPage = 1;
         return Until.scheUtils(apiService.getMovieByOption(option, Constant.KEY, Constant.LANGUAGE, String.valueOf(numPage)));
     }
 }

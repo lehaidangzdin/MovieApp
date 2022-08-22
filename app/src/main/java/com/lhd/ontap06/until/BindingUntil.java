@@ -1,6 +1,5 @@
 package com.lhd.ontap06.until;
 
-import android.view.View;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
@@ -14,5 +13,6 @@ public class BindingUntil {
                 .load(urlToImage)
                 .into(imageView);
     }
+
 
 }

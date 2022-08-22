@@ -11,6 +11,7 @@ import com.lhd.ontap06.base.GetObservable;
 import com.lhd.ontap06.constant.Constant;
 import com.lhd.ontap06.model.movieModel.DetailMovie;
 import com.lhd.ontap06.network.ApiService;
+import com.lhd.ontap06.network.RetroClient;
 import com.lhd.ontap06.until.Until;
 
 import io.reactivex.rxjava3.core.Observable;
@@ -23,7 +24,7 @@ public class DetailViewModel extends AndroidViewModel {
 
     public DetailViewModel(@NonNull Application application) {
         super(application);
-        apiService = Constant.getAPIService();
+        apiService = RetroClient.getAPIService();
     }
 
     public MutableLiveData<DetailMovie> getDetailMovieMutableLiveData() {

@@ -34,13 +34,11 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         //
         mainViewModel = new MainViewModel(getApplication());
-        mainViewModel.getZip4MutableLiveData().observe(this, movieResponseMovieResponseMovieResponseMovieResponseModelZip4 -> getNewsZip(movieResponseMovieResponseMovieResponseMovieResponseModelZip4));
+        mainViewModel.getZip4MutableLiveData().observe(this, this::getNewsZip);
     }
 
     private void displayMvList(List<ListCategoriesMovie> lsListCategoriesMovies) {
-        ListCategoriesMoviesAdapter adapter = new ListCategoriesMoviesAdapter(lsListCategoriesMovies, getApplicationContext(), movie -> {
-            goToDetail(movie);
-        });
+        ListCategoriesMoviesAdapter adapter = new ListCategoriesMoviesAdapter(lsListCategoriesMovies, getApplicationContext(), this::goToDetail);
         binding.setAdapter(adapter);
     }
 
@@ -50,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         bundle.putSerializable("movie", movie);
         in.putExtras(bundle);
         startActivity(in);
+
+
     }
 
     public void getNewsZip(@NonNull ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse> dataMovie) {
@@ -63,5 +63,10 @@ public class MainActivity extends AppCompatActivity {
         lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_UPCOMING, dataMovie.getRes3().getResults()));
         lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_TOP_RATED, dataMovie.getRes4().getResults()));
         displayMvList(lsListCategoriesMovies);
+    }
+
+    public void goToSearchActivity(View view) {
+        Intent i = new Intent(MainActivity.this, SearchActivity.class);
+        startActivity(i);
     }
 }

@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.library.baseAdapters.BR;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lhd.ontap06.databinding.ItemMovieBinding;
@@ -34,8 +33,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         if (movie == null) return;
         holder.itemMovieBinding.setItem(movie);
         holder.itemMovieBinding.setIclick(iOnClickItem);
-        holder.bind(movie);
-
     }
 
     @Override
@@ -51,10 +48,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             this.itemMovieBinding = itemMovieBinding;
         }
 
-        public void bind(final Movie item) {
-            itemMovieBinding.setVariable(BR.item, item);
-            itemMovieBinding.executePendingBindings();
-        }
     }
 
     public interface IOnClickItem {

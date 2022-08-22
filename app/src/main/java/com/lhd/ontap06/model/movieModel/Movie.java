@@ -1,7 +1,5 @@
 package com.lhd.ontap06.model.movieModel;
 
-import androidx.databinding.Bindable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.lhd.ontap06.constant.Constant;
@@ -53,7 +51,7 @@ public class Movie implements Serializable {
     @Expose
     private int voteCount;
 
-//    @Bindable
+    //    @Bindable
     public boolean isAdult() {
         return adult;
     }
@@ -64,7 +62,7 @@ public class Movie implements Serializable {
 
     }
 
-//    @Bindable
+    //    @Bindable
     public String getBackdropPath() {
         String urlBackdropPath = Constant.PATH_IMAGE + backdropPath;
         return urlBackdropPath;
@@ -84,7 +82,7 @@ public class Movie implements Serializable {
 
     }
 
-//    @Bindable
+    //    @Bindable
     public int getId() {
         return id;
     }
@@ -95,7 +93,7 @@ public class Movie implements Serializable {
 
     }
 
-//    @Bindable
+    //    @Bindable
     public String getOriginalLanguage() {
         return originalLanguage;
     }
@@ -106,7 +104,7 @@ public class Movie implements Serializable {
 
     }
 
-//    @Bindable
+    //    @Bindable
     public String getOriginalTitle() {
         return originalTitle;
     }
@@ -117,7 +115,7 @@ public class Movie implements Serializable {
 
     }
 
-//    @Bindable
+    //    @Bindable
     public String getOverview() {
         return overview;
     }
@@ -128,7 +126,7 @@ public class Movie implements Serializable {
 
     }
 
-//    @Bindable
+    //    @Bindable
     public double getPopularity() {
         return popularity;
     }
@@ -139,7 +137,7 @@ public class Movie implements Serializable {
 
     }
 
-//    @Bindable
+    //    @Bindable
     public String getPosterPath() {
         String urlImg = Constant.PATH_IMAGE + posterPath;
         return urlImg;
@@ -151,7 +149,7 @@ public class Movie implements Serializable {
 
     }
 
-//    @Bindable
+    //    @Bindable
     public String getReleaseDate() {
         return releaseDate;
     }
@@ -162,7 +160,7 @@ public class Movie implements Serializable {
 
     }
 
-//    @Bindable
+    //    @Bindable
     public String getTitle() {
         return title;
     }
@@ -173,7 +171,7 @@ public class Movie implements Serializable {
 
     }
 
-//    @Bindable
+    //    @Bindable
     public boolean isVideo() {
         return video;
     }
@@ -184,7 +182,7 @@ public class Movie implements Serializable {
 
     }
 
-//    @Bindable
+    //    @Bindable
     public double getVoteAverage() {
         return voteAverage;
     }
@@ -195,7 +193,7 @@ public class Movie implements Serializable {
 
     }
 
-//    @Bindable
+    //    @Bindable
     public int getVoteCount() {
         return voteCount;
     }

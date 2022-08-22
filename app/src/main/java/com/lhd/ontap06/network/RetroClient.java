@@ -1,5 +1,7 @@
 package com.lhd.ontap06.network;
 
+import com.lhd.ontap06.constant.Constant;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -32,5 +34,9 @@ public class RetroClient {
                     .build();
         }
         return retrofit;
+    }
+
+    public static ApiService getAPIService() {
+        return RetroClient.getRetrofitClient(Constant.BASE_URL).create(ApiService.class);
     }
 }

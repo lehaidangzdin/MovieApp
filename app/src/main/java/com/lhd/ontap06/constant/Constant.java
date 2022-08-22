@@ -1,12 +1,10 @@
 package com.lhd.ontap06.constant;
 
-import com.lhd.ontap06.network.ApiService;
-import com.lhd.ontap06.network.RetroClient;
-
 public class Constant {
 
 
     public static final String KEY = "ca6dbddf63390d46435219a352145f20";
+    private static final String KEY_GG = "AIzaSyC6Hg3IkJGeXAbeHlGmKMKQXgF0iUAUpu8";
     public static final String BASE_URL = "https://api.themoviedb.org/3/";
     public static final String GET_LIST_MOVIE = "https://api.themoviedb.org/3/movie/now_playing?api_key=e9e9d8da18ae29fc430845952232787c&language=en-US&page=1";
     public static final String GET_TRENDING = "https://api.themoviedb.org/3/trending/all/day?api_key=ca6dbddf63390d46435219a352145f20";
@@ -21,9 +19,6 @@ public class Constant {
     public static final String LANGUAGE = "en-US";
     public static final String APPEND_TO_RESPONSE = "videos";
 
-    public static final String FAILURE = "Failure!";
-
-
     public static final String TOP_RATED = "top_rated";
     public static final String NOW_PLAYING = "now_playing";
     public static final String POPULAR = "popular";
@@ -35,7 +30,4 @@ public class Constant {
     public static final String TITLE_UPCOMING = "Upcoming";
 
 
-    public static ApiService getAPIService() {
-        return RetroClient.getRetrofitClient(BASE_URL).create(ApiService.class);
-    }
 }

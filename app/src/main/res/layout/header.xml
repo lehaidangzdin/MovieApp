@@ -28,6 +28,7 @@
         android:layout_centerVertical="true"
         android:background="@drawable/bg_search"
         android:gravity="center_vertical"
+        android:onClick="goToSearchActivity"
         android:padding="5dp"
         android:src="@drawable/ic_baseline_search_24" />
 </RelativeLayout>
