@@ -2,6 +2,7 @@ package com.lhd.ontap06.model.movieModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.lhd.ontap06.constant.Constant;
 
 public class ProductionCompanies {
     @SerializedName("id")
@@ -26,7 +27,7 @@ public class ProductionCompanies {
     }
 
     public String getLogoPath() {
-        return logoPath;
+        return Constant.PATH_IMAGE + logoPath;
     }
 
     public void setLogoPath(String logoPath) {

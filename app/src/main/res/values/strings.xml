@@ -3,4 +3,7 @@
     <string name="detail_movie">Detail Movie</string>
     <string name="search">Search</string>
     <string name="history">History</string>
+    <string name="overview">Overview:</string>
+    <string name="companies">Companies:</string>
+    <string name="genre">Genre:</string>
 </resources>

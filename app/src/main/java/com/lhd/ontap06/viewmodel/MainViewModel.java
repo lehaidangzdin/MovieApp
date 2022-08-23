@@ -58,7 +58,6 @@ public class MainViewModel extends AndroidViewModel {
                 });
     }
 
-
     private Observable<MovieResponse> getMovie(String option) {
         int numPage = 1;
         return Until.scheUtils(apiService.getMovieByOption(option, Constant.KEY, Constant.LANGUAGE, String.valueOf(numPage)));

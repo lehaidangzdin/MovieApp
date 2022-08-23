@@ -10,8 +10,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.lhd.ontap06.R;
+import com.lhd.ontap06.adapter.CompanyAdapter;
 import com.lhd.ontap06.databinding.ActivityDetailBinding;
-import com.lhd.ontap06.model.movieModel.Movie;
 import com.lhd.ontap06.viewmodel.DetailViewModel;
 
 public class DetailActivity extends AppCompatActivity {
@@ -19,6 +19,7 @@ public class DetailActivity extends AppCompatActivity {
     private static final String TAG = DetailActivity.class.getSimpleName();
     private ActivityDetailBinding binding;
     private DetailViewModel detailViewModel;
+    private CompanyAdapter companyAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +29,19 @@ public class DetailActivity extends AppCompatActivity {
         getDataFromMainActivity();
         detailViewModel.getDetailMovieMutableLiveData().observe(this, detailMovie -> {
             binding.setItem(detailMovie);
+            companyAdapter = new CompanyAdapter(detailMovie.getProductionCompanies());
+            binding.setAdapter(companyAdapter);
         });
     }
 
     private void getDataFromMainActivity() {
         Intent i = getIntent();
-        Bundle bundle = i.getExtras();
-        Movie movie = (Movie) bundle.getSerializable("movie");
-        detailViewModel.getDetailMovie(movie.getId());
-        Toast.makeText(this, "" + movie.getTitle(), Toast.LENGTH_SHORT).show();
+        int id = i.getIntExtra("idMovie", 0);
+        detailViewModel.getDetailMovie(id);
+        Toast.makeText(this, "" + id, Toast.LENGTH_SHORT).show();
     }
 
     public void backActivity(View view) {
-        super.onBackPressed();
+        finish();
     }
 }

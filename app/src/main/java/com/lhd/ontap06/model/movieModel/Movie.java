@@ -50,19 +50,17 @@ public class Movie implements Serializable {
     @SerializedName("vote_count")
     @Expose
     private int voteCount;
+    //
 
-    //    @Bindable
     public boolean isAdult() {
         return adult;
     }
 
     public void setAdult(boolean adult) {
         this.adult = adult;
-//        notifyPropertyChanged(BR.adult);
 
     }
 
-    //    @Bindable
     public String getBackdropPath() {
         String urlBackdropPath = Constant.PATH_IMAGE + backdropPath;
         return urlBackdropPath;
@@ -70,7 +68,6 @@ public class Movie implements Serializable {
 
     public void setBackdropPath(String backdropPath) {
         this.backdropPath = backdropPath;
-//        notifyPropertyChanged(BR.backdropPath);
     }
 
     public List<Integer> getGenreIds() {
@@ -82,62 +79,50 @@ public class Movie implements Serializable {
 
     }
 
-    //    @Bindable
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-//        notifyPropertyChanged(BR.id);
-
     }
 
-    //    @Bindable
     public String getOriginalLanguage() {
         return originalLanguage;
     }
 
     public void setOriginalLanguage(String originalLanguage) {
         this.originalLanguage = originalLanguage;
-//        notifyPropertyChanged(BR.originalLanguage);
 
     }
 
-    //    @Bindable
     public String getOriginalTitle() {
         return originalTitle;
     }
 
     public void setOriginalTitle(String originalTitle) {
         this.originalTitle = originalTitle;
-//        notifyPropertyChanged(BR.originalTitle);
 
     }
 
-    //    @Bindable
     public String getOverview() {
         return overview;
     }
 
     public void setOverview(String overview) {
         this.overview = overview;
-//        notifyPropertyChanged(BR.overview);
 
     }
 
-    //    @Bindable
     public double getPopularity() {
         return popularity;
     }
 
     public void setPopularity(double popularity) {
         this.popularity = popularity;
-//        notifyPropertyChanged(BR.popularity);
 
     }
 
-    //    @Bindable
     public String getPosterPath() {
         String urlImg = Constant.PATH_IMAGE + posterPath;
         return urlImg;
@@ -145,62 +130,52 @@ public class Movie implements Serializable {
 
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
-//        notifyPropertyChanged(BR.posterPath);
 
     }
 
-    //    @Bindable
     public String getReleaseDate() {
         return releaseDate;
     }
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
-//        notifyPropertyChanged(BR.releaseDate);
 
     }
 
-    //    @Bindable
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
-//        notifyPropertyChanged(BR.title);
 
     }
 
-    //    @Bindable
     public boolean isVideo() {
         return video;
     }
 
     public void setVideo(boolean video) {
         this.video = video;
-//        notifyPropertyChanged(BR.video);
 
     }
 
-    //    @Bindable
     public double getVoteAverage() {
         return voteAverage;
     }
 
     public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
-//        notifyPropertyChanged(BR.voteAverage);
 
     }
 
-    //    @Bindable
     public int getVoteCount() {
         return voteCount;
     }
 
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
-//        notifyPropertyChanged(BR.voteCount);
-
     }
+
+
 }

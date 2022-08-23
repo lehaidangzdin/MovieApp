@@ -2,6 +2,7 @@ package com.lhd.ontap06.network;
 
 import com.lhd.ontap06.model.movieModel.DetailMovie;
 import com.lhd.ontap06.model.response.MovieResponse;
+import com.lhd.ontap06.model.response.SearchMovieResponse;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.GET;
@@ -23,4 +24,10 @@ public interface ApiService {
     Observable<DetailMovie> getDetailMovie(@Path("id") int id,
                                            @Query("api_key") String apiKey,
                                            @Query("append_to_response") String appendToResponse);
+
+    //https://api.themoviedb.org/3/search/keyword?api_key=e9e9d8da18ae29fc430845952232787c&page=1&query=women
+    @GET("search/keyword")
+    Observable<SearchMovieResponse> searchMovie(@Query("api_key") String apiKey,
+                                                @Query("page") String page,
+                                                @Query("query") String query);
 }

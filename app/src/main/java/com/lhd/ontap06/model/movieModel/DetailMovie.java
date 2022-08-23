@@ -75,10 +75,11 @@ public class DetailMovie {
     private String title;
     @SerializedName("vote_average")
     @Expose
-    private String voteAverage;
+    private float voteAverage;
     @SerializedName("vote_count")
     @Expose
     private int voteCount;
+
 
     public boolean isAdult() {
         return adult;
@@ -220,8 +221,7 @@ public class DetailMovie {
     }
 
     public String getRuntime() {
-        String mRuntine = runtime + " minute";
-        return mRuntine;
+        return runtime + " minute";
     }
 
     public void setRuntime(String runtime) {
@@ -260,11 +260,11 @@ public class DetailMovie {
         this.title = title;
     }
 
-    public String getVoteAverage() {
-        return voteAverage.substring(0, 3);
+    public float getVoteAverage() {
+        return voteAverage / 2;
     }
 
-    public void setVoteAverage(String voteAverage) {
+    public void setVoteAverage(float voteAverage) {
         this.voteAverage = voteAverage;
     }
 

@@ -44,9 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void goToDetail(Movie movie) {
         Intent in = new Intent(MainActivity.this, DetailActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("movie", movie);
-        in.putExtras(bundle);
+        in.putExtra("idMovie", movie.getId());
         startActivity(in);
 
 
@@ -59,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
         binding.process.setVisibility(View.GONE);
         lsListCategoriesMovies = new ArrayList<>();
         lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_POPULAR, dataMovie.getRes1().getResults()));
-        lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_NOW_PLAYING, dataMovie.getRes2().getResults()));
-        lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_UPCOMING, dataMovie.getRes3().getResults()));
+        lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_UPCOMING, dataMovie.getRes2().getResults()));
+        lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_NOW_PLAYING, dataMovie.getRes3().getResults()));
         lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_TOP_RATED, dataMovie.getRes4().getResults()));
         displayMvList(lsListCategoriesMovies);
     }

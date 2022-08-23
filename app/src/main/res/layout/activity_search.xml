@@ -5,9 +5,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="adapter"
-            type="com.lhd.ontap06.adapter.HistoryAdapter" />
+            type="com.lhd.ontap06.adapter.SearchAdapter" />
 
         <variable
             name="model"
@@ -25,12 +27,30 @@
         android:padding="5dp"
         tools:context=".view.SearchActivity">
 
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true"
+            android:background="#00FFFFFF"
+            android:onClick="backActivity"
+            android:padding="5dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintWidth_percent="0.1" />
 
         <EditText
             android:id="@+id/edSearch"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:background="@drawable/bg_search_edit_text"
+            android:afterTextChanged="@{()->viewModel.searchTitleMovie(model.title)}"
+            android:background="@drawable/bg_search"
+            android:drawableEnd="@drawable/ic_baseline_search_24"
             android:hint="@string/search"
             android:padding="8dp"
             android:text="@={model.title}"
@@ -39,37 +59,26 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0"
-            app:layout_constraintWidth_percent="0.8" />
-
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_btn_search_2"
-            android:onClick="@{()->viewModel.onClickInsert(model.title)}"
-            android:src="@drawable/ic_baseline_search_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toEndOf="@+id/edSearch"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0"
-            app:layout_constraintWidth_percent="0.2" />
+            app:layout_constraintWidth_percent="0.9" />
+
 
         <TextView
-            android:id="@+id/his"
+            android:id="@+id/tvMes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="@string/history"
+            android:paddingHorizontal="5dp"
+            android:text="@{viewModel.message}"
             android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="@{viewModel.message.length()>0?View.VISIBLE:View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edSearch"
-            app:layout_constraintVertical_bias="0"
-            tools:layout_editor_absoluteX="5dp" />
+            app:layout_constraintVertical_bias="0" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -82,8 +91,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/his"
+            app:layout_constraintTop_toBottomOf="@+id/tvMes"
             app:layout_constraintVertical_bias="0" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.isSearch?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
