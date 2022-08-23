@@ -63,5 +63,4 @@ public class MainViewModel extends AndroidViewModel {
         return Until.scheUtils(apiService.getMovieByOption(option, Constant.KEY, Constant.LANGUAGE, String.valueOf(numPage)));
     }
 
-    // TODO: 8/23/2022 : this is a test branch
 }
