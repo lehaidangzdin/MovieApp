@@ -62,5 +62,6 @@ public class MainViewModel extends AndroidViewModel {
         int numPage = 1;
         return Until.scheUtils(apiService.getMovieByOption(option, Constant.KEY, Constant.LANGUAGE, String.valueOf(numPage)));
     }
-    // TODO: 8/23/2022 this is master
+
+    // TODO: 8/23/2022 : this is a test branch
 }
