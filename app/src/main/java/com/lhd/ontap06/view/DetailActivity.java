@@ -50,8 +50,12 @@ public class DetailActivity extends AppCompatActivity {
 
     private void disPlayCast(CastResponse res1) {
         List<Cast> ls = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
-            ls.add(res1.getCast().get(i));
+        if (ls.size() > 10) {
+            for (int i = 0; i < 9; i++) {
+                ls.add(res1.getCast().get(i));
+            }
+        } else {
+            ls.addAll(res1.getCast());
         }
         castAdapter = new CastAdapter(ls);
         binding.setAdapter2(castAdapter);
