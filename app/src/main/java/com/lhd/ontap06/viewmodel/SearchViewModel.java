@@ -34,30 +34,6 @@ public class SearchViewModel extends AndroidViewModel {
         message.set("Enter key word to search!");
     }
 
-    public MutableLiveData<List<ResultsSearch>> getLsMovie() {
-        return lsMovie;
-    }
-
-    public void setLsMovie(MutableLiveData<List<ResultsSearch>> lsMovie) {
-        this.lsMovie = lsMovie;
-    }
-
-    public ObservableField<Boolean> getIsSearch() {
-        return isSearch;
-    }
-
-    public void setIsSearch(ObservableField<Boolean> isSearch) {
-        this.isSearch = isSearch;
-    }
-
-    public ObservableField<String> getMessage() {
-        return message;
-    }
-
-    public void setMessage(ObservableField<String> message) {
-        this.message = message;
-    }
-
     public void searchTitleMovie(String title) {
         if (title.length() == 0) {
             isSearch.set(false);
@@ -89,6 +65,33 @@ public class SearchViewModel extends AndroidViewModel {
             }
         });
     }
+
+
+
+    public MutableLiveData<List<ResultsSearch>> getLsMovie() {
+        return lsMovie;
+    }
+
+    public void setLsMovie(MutableLiveData<List<ResultsSearch>> lsMovie) {
+        this.lsMovie = lsMovie;
+    }
+
+    public ObservableField<Boolean> getIsSearch() {
+        return isSearch;
+    }
+
+    public void setIsSearch(ObservableField<Boolean> isSearch) {
+        this.isSearch = isSearch;
+    }
+
+    public ObservableField<String> getMessage() {
+        return message;
+    }
+
+    public void setMessage(ObservableField<String> message) {
+        this.message = message;
+    }
+
 
 
 }
