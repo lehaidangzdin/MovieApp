@@ -1,6 +1,7 @@
 package com.lhd.ontap06.network;
 
 import com.lhd.ontap06.model.movieModel.DetailMovie;
+import com.lhd.ontap06.model.response.CastResponse;
 import com.lhd.ontap06.model.response.MovieResponse;
 import com.lhd.ontap06.model.response.SearchMovieResponse;
 
@@ -30,4 +31,9 @@ public interface ApiService {
     Observable<SearchMovieResponse> searchMovie(@Query("api_key") String apiKey,
                                                 @Query("page") String page,
                                                 @Query("query") String query);
+
+    //http://api.themoviedb.org/3/movie/297762/casts?api_key=e9e9d8da18ae29fc430845952232787c
+    @GET("movie/{id}/casts")
+    Observable<CastResponse> getActorByIdMovie(@Path("id") String id,
+                                               @Query("api_key") String apiKey);
 }

@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.lhd.ontap06.base.GetObservable;
 import com.lhd.ontap06.constant.Constant;
-import com.lhd.ontap06.model.ModelZip4;
+import com.lhd.ontap06.model.modelzip.ModelZip4;
 import com.lhd.ontap06.model.response.MovieResponse;
 import com.lhd.ontap06.network.ApiService;
 import com.lhd.ontap06.network.RetroClient;
@@ -21,7 +21,7 @@ public class MainViewModel extends AndroidViewModel {
     private ApiService apiService;
     private static final String TAG = MainViewModel.class.getSimpleName();
 
-    private MutableLiveData<ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse>> zip4MutableLiveData;
+    private MutableLiveData<ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse>> zip4MutableLiveData = new MutableLiveData<>();
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -29,11 +29,7 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse>> getZip4MutableLiveData() {
-        if (zip4MutableLiveData == null) {
-            zip4MutableLiveData = new MutableLiveData<>();
-            getMovieZip();
-
-        }
+        getMovieZip();
         return zip4MutableLiveData;
     }
 

@@ -12,7 +12,7 @@ import com.lhd.ontap06.R;
 import com.lhd.ontap06.adapter.ListCategoriesMoviesAdapter;
 import com.lhd.ontap06.constant.Constant;
 import com.lhd.ontap06.databinding.ActivityMainBinding;
-import com.lhd.ontap06.model.ModelZip4;
+import com.lhd.ontap06.model.modelzip.ModelZip4;
 import com.lhd.ontap06.model.movieModel.ListCategoriesMovie;
 import com.lhd.ontap06.model.movieModel.Movie;
 import com.lhd.ontap06.model.response.MovieResponse;

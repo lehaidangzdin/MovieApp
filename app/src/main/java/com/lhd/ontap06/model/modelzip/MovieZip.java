@@ -1,4 +1,4 @@
-package com.lhd.ontap06.model;
+package com.lhd.ontap06.model.modelzip;
 
 public class MovieZip<T> {
     private T t;

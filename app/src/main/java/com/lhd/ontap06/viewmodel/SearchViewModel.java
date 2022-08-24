@@ -25,7 +25,7 @@ public class SearchViewModel extends AndroidViewModel {
     private MutableLiveData<List<ResultsSearch>> lsMovie = new MutableLiveData<>();
     private ObservableField<Boolean> isSearch = new ObservableField<>();
     private ObservableField<String> message = new ObservableField<>();
-    private ApiService apiService;
+    private final ApiService apiService;
 
 
     public SearchViewModel(@NonNull Application application) {

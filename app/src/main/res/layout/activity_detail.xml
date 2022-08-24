@@ -10,6 +10,10 @@
             type="com.lhd.ontap06.adapter.CompanyAdapter" />
 
         <variable
+            name="adapter2"
+            type="com.lhd.ontap06.adapter.CastAdapter" />
+
+        <variable
             name="item"
             type="com.lhd.ontap06.model.movieModel.DetailMovie" />
     </data>
@@ -111,7 +115,7 @@
 
                 </LinearLayout>
             </LinearLayout>
-            <!--Companies-->
+            <!--Cast-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,14 +131,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/companies"
+                    android:text="@string/cast"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:adapter="@{adapter}"
+                    android:adapter="@{adapter2}"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>
@@ -168,7 +172,33 @@
                     android:textColor="@color/color_text"
                     android:textSize="16sp" />
             </LinearLayout>
+            <!--Companies-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
+                <View
+                    android:layout_width="300dp"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="8dp"
+                    android:background="@color/gray_light2" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/companies"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adapter="@{adapter}"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>
