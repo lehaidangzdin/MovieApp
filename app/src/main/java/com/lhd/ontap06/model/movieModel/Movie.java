@@ -46,7 +46,7 @@ public class Movie implements Serializable {
     private boolean video;
     @SerializedName("vote_average")
     @Expose
-    private double voteAverage;
+    private float voteAverage;
     @SerializedName("vote_count")
     @Expose
     private int voteCount;
@@ -160,11 +160,11 @@ public class Movie implements Serializable {
 
     }
 
-    public double getVoteAverage() {
-        return voteAverage;
+    public float getVoteAverage() {
+        return voteAverage / 2;
     }
 
-    public void setVoteAverage(double voteAverage) {
+    public void setVoteAverage(float voteAverage) {
         this.voteAverage = voteAverage;
 
     }

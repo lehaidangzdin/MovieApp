@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         //
         mainViewModel = new MainViewModel(getApplication());
         mainViewModel.getZip4MutableLiveData().observe(this, this::getNewsZip);
+        binding.setViewModel(mainViewModel);
     }
 
     private void displayMvList(List<ListCategoriesMovie> lsListCategoriesMovies) {
@@ -46,15 +47,12 @@ public class MainActivity extends AppCompatActivity {
         Intent in = new Intent(MainActivity.this, DetailActivity.class);
         in.putExtra("idMovie", movie.getId());
         startActivity(in);
-
-
     }
 
     public void getNewsZip(@NonNull ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse> dataMovie) {
         if (dataMovie.getRes1() == null) {
             return;
         }
-        binding.process.setVisibility(View.GONE);
         lsListCategoriesMovies = new ArrayList<>();
         lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_POPULAR, dataMovie.getRes1().getResults()));
         lsListCategoriesMovies.add(new ListCategoriesMovie(Constant.TITLE_UPCOMING, dataMovie.getRes2().getResults()));

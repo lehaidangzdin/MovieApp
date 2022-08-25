@@ -36,4 +36,13 @@ public interface ApiService {
     @GET("movie/{id}/casts")
     Observable<CastResponse> getActorByIdMovie(@Path("id") String id,
                                                @Query("api_key") String apiKey);
+
+
+    // get similar movie
+    //https://api.themoviedb.org/3/movie/297762/similar?api_key=e9e9d8da18ae29fc430845952232787c&language=en-US&page=1
+    @GET("movie/{id}/similar")
+    Observable<MovieResponse> getSimilarMovie(@Path("id") String id,
+                                             @Query("api_key") String apiKey,
+                                             @Query("language") String language,
+                                             @Query("page") String page);
 }

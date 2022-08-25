@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="adapter"
             type="com.lhd.ontap06.adapter.CompanyAdapter" />
@@ -14,190 +16,249 @@
             type="com.lhd.ontap06.adapter.CastAdapter" />
 
         <variable
+            name="adapter3"
+            type="com.lhd.ontap06.adapter.MovieAdapter" />
+
+        <variable
             name="item"
             type="com.lhd.ontap06.model.movieModel.DetailMovie" />
+
+        <variable
+            name="viewModel"
+            type="com.lhd.ontap06.viewmodel.DetailViewModel" />
     </data>
+
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gray"
         android:fillViewport="true"
-        android:padding="5dp"
         tools:context=".view.DetailActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <!--Shimmer layout-->
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="100dp"
+                android:background="@color/gray"
+                android:visibility="@{viewModel.isLoading?View.GONE:View.VISIBLE}">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <!--Btn Back-->
-                <ImageButton
-                    android:id="@+id/btnBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/bg_btn_back"
-                    android:elevation="2dp"
-                    android:onClick="backActivity"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_baseline_arrow_back_24" />
-
-                <!--Image-->
-                <ImageView
-                    android:id="@+id/img"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:alpha="0.9"
-                    android:loadImage="@{item.backdropPath}"
-                    android:scaleType="centerCrop" />
-            </RelativeLayout>
-
-            <!--Poster, info-->
+                <include layout="@layout/shimmer_detail" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+            <!--Detail layout-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="-90dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="200dp"
-                    android:elevation="2dp"
-                    android:loadImage="@{item.posterPath}"
-                    android:scaleType="centerCrop" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <!--Btn Back-->
+                    <ImageButton
+                        android:id="@+id/btnBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/bg_btn_back"
+                        android:elevation="2dp"
+                        android:onClick="backActivity"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_baseline_arrow_back_24" />
+                    <!--Image-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:alpha="0.9"
+                        android:loadImage="@{item.backdropPath}"
+                        android:longClickable="true"
+                        android:onLongClick="@{() -> viewModel.onLongClickToDownload(item.posterPath)}"
+                        android:scaleType="centerCrop" />
+                </RelativeLayout>
+                <!--Poster, info-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="-100dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="160dp"
+                        android:layout_height="230dp"
+                        android:loadImage="@{item.posterPath}"
+                        android:scaleType="centerInside"
+                        android:shadowDx="2"
+                        android:shadowDy="2" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/bg_btn_back"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="8dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="@{item.title}"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <RatingBar
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:numStars="5"
+                            android:paddingVertical="4dp"
+                            android:rating="@{item.voteAverage}"
+                            android:stepSize="0.5" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="@{item.releaseDate}"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="@{item.runtime}"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/bg_btn_back"
                     android:orientation="vertical"
-                    android:paddingHorizontal="8dp">
-
-                    <TextView
+                    android:paddingHorizontal="5dp">
+                    <!--Cast-->
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:text="@{item.title}"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
 
-                    <RatingBar
-                        style="@style/Widget.AppCompat.RatingBar.Small"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:numStars="5"
-                        android:padding="4dp"
-                        android:rating="@{item.voteAverage}" />
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="8dp"
+                            android:background="@color/gray_light2" />
 
-                    <TextView
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cast"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adapter="@{adapter2}"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    </LinearLayout>
+                    <!--over view-->
+                    <LinearLayout
+                        android:id="@+id/overview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:text="@{item.releaseDate}"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingVertical="5dp">
 
-                    <TextView
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="5dp"
+                            android:background="@color/gray_light2" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/overview"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="5dp"
+                            android:text="@{item.overview}"
+                            android:textColor="@color/color_text"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <!--Companies-->
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:text="@{item.runtime}"
-                        android:textColor="@color/white"
-                        android:textSize="15sp" />
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
 
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="8dp"
+                            android:background="@color/gray_light2" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/companies"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adapter="@{adapter}"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    </LinearLayout>
+                    <!--Similar Movie-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="8dp"
+                            android:background="@color/gray_light2" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/similar_movie"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adapter="@{adapter3}"
+                            android:orientation="vertical"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-            <!--Cast-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="300dp"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="8dp"
-                    android:background="@color/gray_light2" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/cast"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adapter="@{adapter2}"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-            </LinearLayout>
-            <!--over view-->
-            <LinearLayout
-                android:id="@+id/overview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:paddingVertical="5dp">
-
-                <View
-                    android:layout_width="300dp"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="5dp"
-                    android:background="@color/gray_light2" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/overview"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="5dp"
-                    android:text="@{item.overview}"
-                    android:textColor="@color/color_text"
-                    android:textSize="16sp" />
-            </LinearLayout>
-            <!--Companies-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="300dp"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="8dp"
-                    android:background="@color/gray_light2" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/companies"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adapter="@{adapter}"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

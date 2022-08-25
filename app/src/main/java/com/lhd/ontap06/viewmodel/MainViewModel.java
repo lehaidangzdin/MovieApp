@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
@@ -22,6 +23,7 @@ public class MainViewModel extends AndroidViewModel {
     private static final String TAG = MainViewModel.class.getSimpleName();
 
     private MutableLiveData<ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse>> zip4MutableLiveData = new MutableLiveData<>();
+    private ObservableField<Boolean> isLoadDone = new ObservableField<>();
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -45,6 +47,7 @@ public class MainViewModel extends AndroidViewModel {
                     @Override
                     public void onSuccess(ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse> result) {
                         zip4MutableLiveData.setValue(result);
+                        isLoadDone.set(true);
                     }
 
                     @Override
@@ -59,4 +62,11 @@ public class MainViewModel extends AndroidViewModel {
         return Until.scheUtils(apiService.getMovieByOption(option, Constant.KEY, Constant.LANGUAGE, String.valueOf(numPage)));
     }
 
+    public ObservableField<Boolean> getIsLoadDone() {
+        return isLoadDone;
+    }
+
+    public void setIsLoadDone(ObservableField<Boolean> isLoadDone) {
+        this.isLoadDone = isLoadDone;
+    }
 }

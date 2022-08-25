@@ -11,6 +11,9 @@
             name="adapter"
             type="com.lhd.ontap06.adapter.ListCategoriesMoviesAdapter" />
 
+        <variable
+            name="viewModel"
+            type="com.lhd.ontap06.viewmodel.MainViewModel" />
 
     </data>
 
@@ -31,6 +34,14 @@
 
                 <include layout="@layout/header" />
 
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.isLoadDone?View.GONE:View.VISIBLE}">
+
+                    <include layout="@layout/shimmer_movie" />
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcv"
                     android:layout_width="match_parent"
@@ -39,11 +50,5 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
-        <ProgressBar
-            android:id="@+id/process"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
     </RelativeLayout>
 </layout>

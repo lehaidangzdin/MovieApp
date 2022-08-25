@@ -35,7 +35,7 @@ public class ListCategoriesMoviesAdapter extends RecyclerView.Adapter<ListCatego
         final ListCategoriesMovie categoriesMovie = lsMvZip.get(position);
         if (categoriesMovie == null) return;
         holder.itemLstCatogeriesMovieBinding.setItem(categoriesMovie);
-        MovieAdapter movieAdapter = new MovieAdapter(categoriesMovie.getLsMovies(), this.callBack);
+        MovieAdapter movieAdapter = new MovieAdapter(categoriesMovie.getLsMovies(), this.callBack,1);
         holder.itemLstCatogeriesMovieBinding.setAdapter(movieAdapter);
     }
 
