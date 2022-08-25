@@ -42,7 +42,7 @@ public class MainViewModel extends AndroidViewModel {
 
     public void getMovieZip() {
         Until.scheUtils(Observable.zip(getMovie(Constant.POPULAR), getMovie(Constant.UPCOMING), getMovie(Constant.NOW_PLAYING), getMovie(Constant.TOP_RATED),
-                        (mvPopular, mvUpcoming, mvNowplaying, mvToprated) -> new ModelZip4<>(mvPopular, mvNowplaying, mvToprated, mvUpcoming)))
+                        (mvPopular, mvUpcoming, mvNowplaying, mvToprated) -> new ModelZip4<>(mvPopular, mvUpcoming, mvNowplaying, mvToprated)))
                 .subscribe(new GetObservable<ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse>>() {
                     @Override
                     public void onSuccess(ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse> result) {

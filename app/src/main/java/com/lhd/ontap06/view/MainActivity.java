@@ -1,11 +1,15 @@
 package com.lhd.ontap06.view;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.databinding.DataBindingUtil;
 
 import com.lhd.ontap06.R;
@@ -65,4 +69,11 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(MainActivity.this, SearchActivity.class);
         startActivity(i);
     }
+
+
+    private void goToSetting() {
+        Toast.makeText(this, "setting", Toast.LENGTH_SHORT).show();
+    }
+
+
 }

@@ -13,4 +13,10 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/gray</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="Theme.Ontap06.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.Ontap06.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Ontap06.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

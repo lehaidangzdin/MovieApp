@@ -11,8 +11,8 @@ import androidx.databinding.DataBindingUtil;
 import com.lhd.ontap06.R;
 import com.lhd.ontap06.adapter.SearchAdapter;
 import com.lhd.ontap06.databinding.ActivitySearchBinding;
-import com.lhd.ontap06.model.db.History;
 import com.lhd.ontap06.model.movieModel.ResultsSearch;
+import com.lhd.ontap06.model.movieModel.Search;
 import com.lhd.ontap06.viewmodel.SearchViewModel;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.I
 
     private ActivitySearchBinding binding;
     private SearchViewModel searchViewModel;
-    private History history;
+    private Search search;
     private SearchAdapter searchAdapter;
 
 
@@ -29,11 +29,11 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.I
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
-        history = new History();
+        search = new Search();
         searchViewModel = new SearchViewModel(getApplication());
         binding.setViewModel(searchViewModel);
 
-        binding.setModel(history);
+        binding.setModel(search);
         searchViewModel.getLsMovie().observe(this, this::displayResultsMovie);
     }
 

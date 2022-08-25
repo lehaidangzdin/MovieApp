@@ -1,10 +1,15 @@
 package com.lhd.ontap06.view;
 
 import android.Manifest;
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -12,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -49,12 +55,18 @@ public class DetailActivity extends AppCompatActivity implements MovieAdapter.IO
         getDataFromMainActivity();
         setBottomSheet();
         binding.setViewModel(detailViewModel);
+        // catch download complete event from android download manager which broadcast message
+        registerReceiver(onDownLoadComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
+        // id
         detailViewModel.getIdMovie().observe(this, integer -> detailViewModel.getDetailMovie(integer));
-        detailViewModel.getZipSimilarMovie().observe(this, responseZip3 -> {
+        // data zip
+        detailViewModel.getZip3Movie().observe(this, responseZip3 -> {
             disPlayDetail(responseZip3.getRes());
             disPlayCast(responseZip3.getRes1());
             disPlaySimilarMovie(responseZip3.getRes2());
         });
+        // show menu
         detailViewModel.getIsShowMenu().observe(this, aBoolean -> {
             if (aBoolean) {
                 bottomSheetDialog.show();
@@ -62,7 +74,7 @@ public class DetailActivity extends AppCompatActivity implements MovieAdapter.IO
                 bottomSheetDialog.cancel();
             }
         });
-
+        // toast mess
         detailViewModel.getPermissionRequest().observe(this, s -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
@@ -75,6 +87,13 @@ public class DetailActivity extends AppCompatActivity implements MovieAdapter.IO
                 detailViewModel.onPermissionResult(true);
             }
         });
+        // mess
+        detailViewModel.getMess().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Toast.makeText(DetailActivity.this, "" + s, Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -84,9 +103,9 @@ public class DetailActivity extends AppCompatActivity implements MovieAdapter.IO
         if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 detailViewModel.onPermissionResult(true);
+            } else {
+                detailViewModel.onPermissionResult(false);
             }
-        } else {
-            Toast.makeText(DetailActivity.this, "Permission denied!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -95,7 +114,6 @@ public class DetailActivity extends AppCompatActivity implements MovieAdapter.IO
         bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(binding.getRoot());
         binding.setViewModel(detailViewModel);
-
     }
 
 
@@ -103,7 +121,6 @@ public class DetailActivity extends AppCompatActivity implements MovieAdapter.IO
         Intent i = getIntent();
         int id = i.getIntExtra("idMovie", 0);
         detailViewModel.setIdMovie(id);
-        Toast.makeText(this, "" + id, Toast.LENGTH_SHORT).show();
     }
 
     private void disPlaySimilarMovie(MovieResponse res2) {
@@ -145,4 +162,23 @@ public class DetailActivity extends AppCompatActivity implements MovieAdapter.IO
         startActivity(i);
     }
 
+    private BroadcastReceiver onDownLoadComplete = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            Log.e(TAG, "onReceive: " + id);
+            if (detailViewModel.getIdDownLoad().get() == null) return;
+            if (detailViewModel.getIdDownLoad().get() == id) {
+                Toast.makeText(context, "Download complete!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Error download!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(onDownLoadComplete);
+    }
 }

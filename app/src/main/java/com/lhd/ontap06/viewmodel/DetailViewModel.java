@@ -32,12 +32,16 @@ public class DetailViewModel extends AndroidViewModel {
     private static final String TAG = DetailViewModel.class.getSimpleName();
     private ApiService apiService;
     private MutableLiveData<DetailMovie> detailMovieMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<ModelZip3<DetailMovie, CastResponse, MovieResponse>> zipSimilarMovie = new MutableLiveData<>();
+    private MutableLiveData<ModelZip3<DetailMovie, CastResponse, MovieResponse>> zip3Movie = new MutableLiveData<>();
     private MutableLiveData<Integer> idMovie = new MutableLiveData<>();
     private MutableLiveData<Boolean> isShowMenu = new MutableLiveData<>();
     private MutableLiveData<String> permissionRequest = new MutableLiveData<>();
+    private MutableLiveData<String> mess = new MutableLiveData<>();
+    //
     private ObservableField<Boolean> isLoading = new ObservableField<>();
+    private ObservableField<Long> idDownLoad = new ObservableField<>();
     private String url;
+
 
     public boolean onLongClickToDownload(String url) {
         isShowMenu.setValue(true);
@@ -48,29 +52,40 @@ public class DetailViewModel extends AndroidViewModel {
     public void downLoadImage() {
         isShowMenu.setValue(false);
         permissionRequest.setValue(WRITE_EXTERNAL_STORAGE);
-        Log.e(TAG, "downLoadImage: " + url);
-//        startDownload();
     }
 
     private void startDownload() {
+        try {
+            mess.setValue("Download started...");
+            String fileName = System.currentTimeMillis() + ".png";
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
+            request.setTitle("Download...");
+            request.setDescription("Download backdrop image.");
+            request.allowScanningByMediaScanner();
+            request.setAllowedOverRoaming(true);
+            request.setAllowedOverMetered(true);
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
 
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-        request.setTitle("Download...");
-        request.setDescription("Download file...");
-
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, System.currentTimeMillis() + ".png");
-
-        DownloadManager downloadManager = (DownloadManager) getApplication().getSystemService(Context.DOWNLOAD_SERVICE);
-        if (downloadManager != null) {
-            downloadManager.enqueue(request);
+            DownloadManager downloadManager = (DownloadManager) getApplication().getSystemService(Context.DOWNLOAD_SERVICE);
+            if (downloadManager != null) {
+                idDownLoad.set(downloadManager.enqueue(request));
+            }
+            //log path image downloaded
+//            String path = "file:/" + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + fileName;
+//            Log.e(TAG, "startDownload: " + path);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
 
     public void onPermissionResult(boolean granted) {
         if (granted) {
             startDownload();
+        } else {
+            mess.setValue("Permission denied!");
         }
     }
 
@@ -79,7 +94,7 @@ public class DetailViewModel extends AndroidViewModel {
                 (Function3<DetailMovie, CastResponse, MovieResponse, ModelZip3>) ModelZip3::new)).subscribe(new GetObservable<ModelZip3>() {
             @Override
             public void onSuccess(ModelZip3 result) {
-                zipSimilarMovie.setValue(result);
+                zip3Movie.setValue(result);
                 isLoading.set(true);
             }
 
@@ -123,12 +138,12 @@ public class DetailViewModel extends AndroidViewModel {
         this.detailMovieMutableLiveData = detailMovieMutableLiveData;
     }
 
-    public MutableLiveData<ModelZip3<DetailMovie, CastResponse, MovieResponse>> getZipSimilarMovie() {
-        return zipSimilarMovie;
+    public MutableLiveData<ModelZip3<DetailMovie, CastResponse, MovieResponse>> getZip3Movie() {
+        return zip3Movie;
     }
 
-    public void setZipSimilarMovie(MutableLiveData<ModelZip3<DetailMovie, CastResponse, MovieResponse>> zipSimilarMovie) {
-        this.zipSimilarMovie = zipSimilarMovie;
+    public void setZip3Movie(MutableLiveData<ModelZip3<DetailMovie, CastResponse, MovieResponse>> zip3Movie) {
+        this.zip3Movie = zip3Movie;
     }
 
     public MutableLiveData<Integer> getIdMovie() {
@@ -153,5 +168,20 @@ public class DetailViewModel extends AndroidViewModel {
 
     public void setIsLoading(ObservableField<Boolean> isLoading) {
         this.isLoading = isLoading;
+    }
+
+    public ObservableField<Long> getIdDownLoad() {
+        return idDownLoad;
+    }
+
+    public void setIdDownLoad(ObservableField<Long> idDownLoad) {
+        this.idDownLoad = idDownLoad;
+    }
+
+    public MutableLiveData<String> getMess() {
+        return mess;
+    }
+    public void setMess(MutableLiveData<String> mess) {
+        this.mess = mess;
     }
 }

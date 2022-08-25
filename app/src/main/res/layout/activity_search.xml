@@ -13,7 +13,7 @@
 
         <variable
             name="model"
-            type="com.lhd.ontap06.model.db.History" />
+            type="com.lhd.ontap06.model.movieModel.Search" />
 
         <variable
             name="viewModel"
