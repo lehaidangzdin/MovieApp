@@ -4,4 +4,4 @@
   - Retrofit
   - LiveData
 # Api: https://www.themoviedb.org/documentation/api
-# Description: App show to detail movie.
+# Description: App show to detail movie. Beginer learn rxandroid
