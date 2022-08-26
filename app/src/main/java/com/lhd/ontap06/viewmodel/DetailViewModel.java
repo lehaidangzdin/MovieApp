@@ -30,13 +30,13 @@ import io.reactivex.rxjava3.functions.Function3;
 public class DetailViewModel extends AndroidViewModel {
 
     private static final String TAG = DetailViewModel.class.getSimpleName();
-    private ApiService apiService;
+    private final ApiService apiService;
     private MutableLiveData<DetailMovie> detailMovieMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<ModelZip3<DetailMovie, CastResponse, MovieResponse>> zip3Movie = new MutableLiveData<>();
-    private MutableLiveData<Integer> idMovie = new MutableLiveData<>();
+    private final MutableLiveData<Integer> idMovie = new MutableLiveData<>();
     private MutableLiveData<Boolean> isShowMenu = new MutableLiveData<>();
     private MutableLiveData<String> permissionRequest = new MutableLiveData<>();
-    private MutableLiveData<String> mess = new MutableLiveData<>();
+    private MutableLiveData<String> messDownload = new MutableLiveData<>();
     //
     private ObservableField<Boolean> isLoading = new ObservableField<>();
     private ObservableField<Long> idDownLoad = new ObservableField<>();
@@ -56,11 +56,11 @@ public class DetailViewModel extends AndroidViewModel {
 
     private void startDownload() {
         try {
-            mess.setValue("Download started...");
+            messDownload.setValue("Download started...");
             String fileName = System.currentTimeMillis() + ".png";
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-            request.setTitle("Download...");
+            request.setTitle("Download backdrop image.");
             request.setDescription("Download backdrop image.");
             request.allowScanningByMediaScanner();
             request.setAllowedOverRoaming(true);
@@ -85,12 +85,12 @@ public class DetailViewModel extends AndroidViewModel {
         if (granted) {
             startDownload();
         } else {
-            mess.setValue("Permission denied!");
+            messDownload.setValue("Permission denied!");
         }
     }
 
     public void getDetailMovie(int id) {
-        Until.scheUtils(Observable.zip(getDetail(id), getActor(id), getSimilar(id, 1),
+        Until.scheUtils(Observable.zip(getDetail(id), getActor(id), getSimilar(id),
                 (Function3<DetailMovie, CastResponse, MovieResponse, ModelZip3>) ModelZip3::new)).subscribe(new GetObservable<ModelZip3>() {
             @Override
             public void onSuccess(ModelZip3 result) {
@@ -101,6 +101,7 @@ public class DetailViewModel extends AndroidViewModel {
             @Override
             public void onError(String msg) {
                 Log.e(TAG, "onError: " + msg);
+                messDownload.setValue("Something went wrong!");
             }
         });
     }
@@ -113,8 +114,8 @@ public class DetailViewModel extends AndroidViewModel {
         return Until.scheUtils(apiService.getActorByIdMovie(String.valueOf(id), Constant.KEY));
     }
 
-    private Observable<MovieResponse> getSimilar(int id, int numPage) {
-        return Until.scheUtils(apiService.getSimilarMovie(String.valueOf(id), Constant.KEY, Constant.LANGUAGE, String.valueOf(numPage)));
+    private Observable<MovieResponse> getSimilar(int id) {
+        return Until.scheUtils(apiService.getSimilarMovie(String.valueOf(id), Constant.KEY, Constant.LANGUAGE, String.valueOf(1)));
     }
 
     public MutableLiveData<String> getPermissionRequest() {
@@ -178,10 +179,11 @@ public class DetailViewModel extends AndroidViewModel {
         this.idDownLoad = idDownLoad;
     }
 
-    public MutableLiveData<String> getMess() {
-        return mess;
+    public MutableLiveData<String> getMessDownload() {
+        return messDownload;
     }
-    public void setMess(MutableLiveData<String> mess) {
-        this.mess = mess;
+
+    public void setMessDownload(MutableLiveData<String> messDownload) {
+        this.messDownload = messDownload;
     }
 }

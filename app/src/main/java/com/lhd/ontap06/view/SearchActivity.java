@@ -3,13 +3,13 @@ package com.lhd.ontap06.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.lhd.ontap06.R;
 import com.lhd.ontap06.adapter.SearchAdapter;
+import com.lhd.ontap06.constant.Constant;
 import com.lhd.ontap06.databinding.ActivitySearchBinding;
 import com.lhd.ontap06.model.movieModel.ResultsSearch;
 import com.lhd.ontap06.model.movieModel.Search;
@@ -44,9 +44,8 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.I
 
     @Override
     public void onClickItem(ResultsSearch resultsSearch) {
-        Toast.makeText(this, "" + resultsSearch.getName(), Toast.LENGTH_SHORT).show();
         Intent i = new Intent(SearchActivity.this, DetailActivity.class);
-        i.putExtra("idMovie", resultsSearch.getId());
+        i.putExtra(Constant.KEY_INTENT_MOVIE, resultsSearch.getId());
         startActivity(i);
     }
 

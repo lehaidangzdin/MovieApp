@@ -13,7 +13,7 @@ public class Constant {
     public static final String GET_DETAIL_MOVIE = "https://api.themoviedb.org/3/movie/297762?api_key=e9e9d8da18ae29fc430845952232787c&append_to_response=videos";
     public static final String GET_REVIEW = "https://api.themoviedb.org/3/movie/297762/reviews?api_key=e9e9d8da18ae29fc430845952232787c";
     public static final String GET_CATEGORIES = "https://api.themoviedb.org/3/genre/movie/list?api_key=e9e9d8da18ae29fc430845952232787c&language=en-US";
-    public static final String GET_SIMILAR_MOVIE= "https://api.themoviedb.org/3/movie/297762/similar?api_key=e9e9d8da18ae29fc430845952232787c&language=en-US&page=1";
+    public static final String GET_SIMILAR_MOVIE = "https://api.themoviedb.org/3/movie/297762/similar?api_key=e9e9d8da18ae29fc430845952232787c&language=en-US&page=1";
 
     public static final String PATH_IMAGE = "https://image.tmdb.org/t/p/original";
     public static final String LANGUAGE = "en-US";
@@ -28,6 +28,14 @@ public class Constant {
     public static final String TITLE_NOW_PLAYING = "Now playing";
     public static final String TITLE_POPULAR = "Popular";
     public static final String TITLE_UPCOMING = "Upcoming";
+
+    public static final int REQUEST_CODE_DOWNLOAD_IMG = 1;
+
+    public static final int TYPE_LIST_VERTICAL = 0;
+    public static final int TYPE_LIST_HORIZONTAL = 1;
+
+    public static final String KEY_INTENT_MOVIE = "idMovie";
+
 
 
 }

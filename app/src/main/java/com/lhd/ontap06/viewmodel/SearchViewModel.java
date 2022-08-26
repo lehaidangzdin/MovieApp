@@ -67,7 +67,6 @@ public class SearchViewModel extends AndroidViewModel {
     }
 
 
-
     public MutableLiveData<List<ResultsSearch>> getLsMovie() {
         return lsMovie;
     }
@@ -91,7 +90,6 @@ public class SearchViewModel extends AndroidViewModel {
     public void setMessage(ObservableField<String> message) {
         this.message = message;
     }
-
 
 
 }

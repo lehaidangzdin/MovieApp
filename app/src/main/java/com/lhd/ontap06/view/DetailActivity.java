@@ -9,7 +9,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -25,6 +23,7 @@ import com.lhd.ontap06.R;
 import com.lhd.ontap06.adapter.CastAdapter;
 import com.lhd.ontap06.adapter.CompanyAdapter;
 import com.lhd.ontap06.adapter.MovieAdapter;
+import com.lhd.ontap06.constant.Constant;
 import com.lhd.ontap06.databinding.ActivityDetailBinding;
 import com.lhd.ontap06.databinding.BottomSheetDialogBinding;
 import com.lhd.ontap06.model.movieModel.Cast;
@@ -79,7 +78,7 @@ public class DetailActivity extends AppCompatActivity implements MovieAdapter.IO
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                     String[] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                    requestPermissions(permission, 1);
+                    requestPermissions(permission, Constant.REQUEST_CODE_DOWNLOAD_IMG);
                 } else {
                     detailViewModel.onPermissionResult(true);
                 }
@@ -88,19 +87,14 @@ public class DetailActivity extends AppCompatActivity implements MovieAdapter.IO
             }
         });
         // mess
-        detailViewModel.getMess().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                Toast.makeText(DetailActivity.this, "" + s, Toast.LENGTH_SHORT).show();
-            }
-        });
+        detailViewModel.getMessDownload().observe(this, s -> Toast.makeText(DetailActivity.this, "" + s, Toast.LENGTH_LONG).show());
 
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
+        if (requestCode == Constant.REQUEST_CODE_DOWNLOAD_IMG) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 detailViewModel.onPermissionResult(true);
             } else {
@@ -119,17 +113,17 @@ public class DetailActivity extends AppCompatActivity implements MovieAdapter.IO
 
     private void getDataFromMainActivity() {
         Intent i = getIntent();
-        int id = i.getIntExtra("idMovie", 0);
+        int id = i.getIntExtra(Constant.KEY_INTENT_MOVIE, 0);
         detailViewModel.setIdMovie(id);
     }
 
-    private void disPlaySimilarMovie(MovieResponse res2) {
-        movieAdapter = new MovieAdapter(res2.getResults(), this::clickItem, 0);
+    private void disPlaySimilarMovie(@NonNull MovieResponse res2) {
+        movieAdapter = new MovieAdapter(res2.getResults(), this::clickItem, Constant.TYPE_LIST_VERTICAL);
         binding.setAdapter3(movieAdapter);
 
     }
 
-    private void disPlayCast(CastResponse res1) {
+    private void disPlayCast(@NonNull CastResponse res1) {
         List<Cast> ls = new ArrayList<>();
         // lấy 10 cast
         if (res1.getCast().size() > 10) {
@@ -155,18 +149,16 @@ public class DetailActivity extends AppCompatActivity implements MovieAdapter.IO
     }
 
     @Override
-    public void clickItem(Movie movie) {
-        Toast.makeText(this, "" + movie.getTitle(), Toast.LENGTH_SHORT).show();
+    public void clickItem(@NonNull Movie movie) {
         Intent i = new Intent(DetailActivity.this, DetailActivity.class);
-        i.putExtra("idMovie", movie.getId());
+        i.putExtra(Constant.KEY_INTENT_MOVIE, movie.getId());
         startActivity(i);
     }
 
-    private BroadcastReceiver onDownLoadComplete = new BroadcastReceiver() {
+    private final BroadcastReceiver onDownLoadComplete = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(Context context, @NonNull Intent intent) {
             long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            Log.e(TAG, "onReceive: " + id);
             if (detailViewModel.getIdDownLoad().get() == null) return;
             if (detailViewModel.getIdDownLoad().get() == id) {
                 Toast.makeText(context, "Download complete!", Toast.LENGTH_SHORT).show();

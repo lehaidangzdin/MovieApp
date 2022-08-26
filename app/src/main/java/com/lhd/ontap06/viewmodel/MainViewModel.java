@@ -23,21 +23,9 @@ public class MainViewModel extends AndroidViewModel {
     private static final String TAG = MainViewModel.class.getSimpleName();
 
     private MutableLiveData<ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse>> zip4MutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<String> mess = new MutableLiveData<>();
     private ObservableField<Boolean> isLoadDone = new ObservableField<>();
-
-    public MainViewModel(@NonNull Application application) {
-        super(application);
-        this.apiService = RetroClient.getAPIService();
-    }
-
-    public MutableLiveData<ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse>> getZip4MutableLiveData() {
-        getMovieZip();
-        return zip4MutableLiveData;
-    }
-
-    public void setZip4MutableLiveData(MutableLiveData<ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse>> zip4MutableLiveData) {
-        this.zip4MutableLiveData = zip4MutableLiveData;
-    }
+    private int numPage = 1;
 
 
     public void getMovieZip() {
@@ -53,13 +41,27 @@ public class MainViewModel extends AndroidViewModel {
                     @Override
                     public void onError(String msg) {
                         Log.e(TAG, "Loi : " + msg);
+                        mess.setValue("Something went wrong!");
                     }
                 });
     }
 
     private Observable<MovieResponse> getMovie(String option) {
-        int numPage = 1;
         return Until.scheUtils(apiService.getMovieByOption(option, Constant.KEY, Constant.LANGUAGE, String.valueOf(numPage)));
+    }
+
+    public MainViewModel(@NonNull Application application) {
+        super(application);
+        this.apiService = RetroClient.getAPIService();
+    }
+
+    public MutableLiveData<ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse>> getZip4MutableLiveData() {
+        getMovieZip();
+        return zip4MutableLiveData;
+    }
+
+    public void setZip4MutableLiveData(MutableLiveData<ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse>> zip4MutableLiveData) {
+        this.zip4MutableLiveData = zip4MutableLiveData;
     }
 
     public ObservableField<Boolean> getIsLoadDone() {
@@ -68,5 +70,13 @@ public class MainViewModel extends AndroidViewModel {
 
     public void setIsLoadDone(ObservableField<Boolean> isLoadDone) {
         this.isLoadDone = isLoadDone;
+    }
+
+    public MutableLiveData<String> getMess() {
+        return mess;
+    }
+
+    public void setMess(MutableLiveData<String> mess) {
+        this.mess = mess;
     }
 }
