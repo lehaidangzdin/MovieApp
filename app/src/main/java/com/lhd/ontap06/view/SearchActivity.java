@@ -29,6 +29,7 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.I
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
+        binding.edSearch.requestFocus();
         search = new Search();
         searchViewModel = new SearchViewModel(getApplication());
         binding.setViewModel(searchViewModel);

@@ -35,7 +35,10 @@ public class Constant {
     public static final int TYPE_LIST_HORIZONTAL = 1;
 
     public static final String KEY_INTENT_MOVIE = "idMovie";
+    public static final String KEY_INTENT_LIST_MOVIE = "lsMovie";
 
+    public static final int VIEW_TYPE_ITEM = 0;
+    public static final int VIEW_TYPE_LOADING = 1;
 
 
 }

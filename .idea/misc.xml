@@ -8,17 +8,20 @@
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/drawable/bg_btn_search_2.xml" value="0.1355" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/drawable/bg_search.xml" value="0.1445" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/drawable/bg_search_edit_text.xml" value="0.121" />
+        <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout-v26/activity_search.xml" value="0.25" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/activity_detail.xml" value="0.264" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/activity_downloaded.xml" value="0.25" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/activity_main.xml" value="0.2501302761855133" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/activity_main2.xml" value="0.25" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/activity_search.xml" value="0.24537037037037038" />
+        <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/activity_see_more.xml" value="0.25" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/activity_setting.xml" value="0.25" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.24895833333333334" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/header.xml" value="0.2" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/item_cast.xml" value="0.24512820512820513" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/item_companies.xml" value="0.24512820512820513" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/item_history.xml" value="0.264" />
+        <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/item_loadmore.xml" value="0.24895833333333334" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/item_lst_catogeries_movie.xml" value="0.264" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/item_movie.xml" value="0.25" />
         <entry key="..\:/LE HAI DANG/Code/OnTap06/app/src/main/res/layout/item_mvzip.xml" value="0.1" />

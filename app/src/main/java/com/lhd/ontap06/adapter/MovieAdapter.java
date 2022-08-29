@@ -53,13 +53,14 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             viewMovieHorizontal.itemMovieBinding.setIclick(iOnClickItem);
         }
 
+
     }
 
     @Override
     public int getItemViewType(int position) {
         if (typeOfList == 1) {
             return TYPE_HORIZONTAL;
-        }else {
+        } else {
             return TYPE_VERTICAL;
         }
     }

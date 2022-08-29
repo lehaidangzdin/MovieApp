@@ -1,8 +1,9 @@
 package com.lhd.ontap06.model.movieModel;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ListCategoriesMovie {
+public class ListCategoriesMovie implements Serializable {
     private String title;
     private List<Movie> lsMovies;
 

@@ -24,7 +24,8 @@
             android:layout_height="match_parent"
             android:background="@color/gray"
             android:onClick="@{()->iclick.clickItem(item)}"
-            app:cardCornerRadius="5dp">
+            app:cardCornerRadius="5dp"
+            app:cardUseCompatPadding="true">
 
             <ImageView
                 android:layout_width="150dp"

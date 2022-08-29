@@ -15,10 +15,12 @@ import java.util.List;
 public class ListCategoriesMoviesAdapter extends RecyclerView.Adapter<ListCategoriesMoviesAdapter.ViewHolder> {
     private final List<ListCategoriesMovie> lsMvZip;
     private final MovieAdapter.IOnClickItem callBack;
+    private final ClickSeeMore clickSeeMore;
 
-    public ListCategoriesMoviesAdapter(List<ListCategoriesMovie> lsMvZip, MovieAdapter.IOnClickItem callBack) {
+    public ListCategoriesMoviesAdapter(List<ListCategoriesMovie> lsMvZip, MovieAdapter.IOnClickItem callBack, ClickSeeMore clickSeeMore) {
         this.lsMvZip = lsMvZip;
         this.callBack = callBack;
+        this.clickSeeMore = clickSeeMore;
     }
 
     @NonNull
@@ -32,22 +34,11 @@ public class ListCategoriesMoviesAdapter extends RecyclerView.Adapter<ListCatego
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final ListCategoriesMovie categoriesMovie = lsMvZip.get(position);
         if (categoriesMovie == null) return;
-        holder.itemLstCatogeriesMovieBinding.setItem(categoriesMovie);
         MovieAdapter movieAdapter = new MovieAdapter(categoriesMovie.getLsMovies(), this.callBack, Constant.TYPE_LIST_HORIZONTAL);
+        holder.itemLstCatogeriesMovieBinding.setItem(categoriesMovie);
         holder.itemLstCatogeriesMovieBinding.setAdapter(movieAdapter);
-//        holder.itemLstCatogeriesMovieBinding.rcv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-////                if (!isLoading) {
-//                if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == categoriesMovie.getLsMovies().size() - 1) {
-//                    //bottom of list!
-//                    Log.e("TAG", "onScrolled: END");
-////                    }
-//                }
-//            }
-//        });
+        holder.itemLstCatogeriesMovieBinding.setClickSeemore(clickSeeMore);
+
     }
 
     @Override
@@ -62,6 +53,10 @@ public class ListCategoriesMoviesAdapter extends RecyclerView.Adapter<ListCatego
             super(itemLstCatogeriesMovieBinding.getRoot());
             this.itemLstCatogeriesMovieBinding = itemLstCatogeriesMovieBinding;
         }
+    }
+
+    public interface ClickSeeMore {
+        void onClickSeeMore(ListCategoriesMovie listCategoriesMovie);
     }
 
 }

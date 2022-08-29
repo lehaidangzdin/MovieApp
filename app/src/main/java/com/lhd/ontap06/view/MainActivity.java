@@ -23,7 +23,7 @@ import com.lhd.ontap06.viewmodel.MainViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ListCategoriesMoviesAdapter.ClickSeeMore {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private ActivityMainBinding binding;
@@ -41,15 +41,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayMvList(List<ListCategoriesMovie> lsListCategoriesMovies) {
-        ListCategoriesMoviesAdapter adapter = new ListCategoriesMoviesAdapter(lsListCategoriesMovies, this::goToDetail);
+        ListCategoriesMoviesAdapter adapter = new ListCategoriesMoviesAdapter(lsListCategoriesMovies, this::goToDetail, this::onClickSeeMore);
         binding.setAdapter(adapter);
     }
 
-    private void goToDetail(@NonNull Movie movie) {
-        Intent in = new Intent(MainActivity.this, DetailActivity.class);
-        in.putExtra(Constant.KEY_INTENT_MOVIE, movie.getId());
-        startActivity(in);
-    }
 
     public void getNewsZip(@NonNull ModelZip4<MovieResponse, MovieResponse, MovieResponse, MovieResponse> dataMovie) {
         if (dataMovie.getRes1() == null) {
@@ -65,6 +60,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToSearchActivity(View view) {
         Intent i = new Intent(MainActivity.this, SearchActivity.class);
+        startActivity(i);
+    }
+
+    private void goToDetail(@NonNull Movie movie) {
+        Intent in = new Intent(MainActivity.this, DetailActivity.class);
+        in.putExtra(Constant.KEY_INTENT_MOVIE, movie.getId());
+        startActivity(in);
+    }
+
+    @Override
+    public void onClickSeeMore(ListCategoriesMovie listCategoriesMovie) {
+        Intent i = new Intent(MainActivity.this, SeeMoreActivity.class);
+        Bundle b = new Bundle();
+        b.putSerializable(Constant.KEY_INTENT_LIST_MOVIE, listCategoriesMovie);
+        i.putExtras(b);
         startActivity(i);
     }
 }

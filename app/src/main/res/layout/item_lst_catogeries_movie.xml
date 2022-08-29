@@ -11,20 +11,28 @@
         <variable
             name="adapter"
             type="com.lhd.ontap06.adapter.MovieAdapter" />
+
+        <variable
+            name="clickSeemore"
+            type="com.lhd.ontap06.adapter.ListCategoriesMoviesAdapter.ClickSeeMore" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:background="@color/gray"
+        android:gravity="bottom"
         android:orientation="vertical"
         android:padding="4dp">
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:padding="5dp"
             android:paddingVertical="5dp"
             android:text="@{item.title}"
             android:textAllCaps="true"
@@ -32,13 +40,27 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="2dp"
+            android:onClick="@{()->clickSeemore.onClickSeeMore(item)}"
+            android:text="@string/see_more"
+            android:textColor="#8BB1FF"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitle"
             android:layout_marginTop="5dp"
             android:adapter="@{adapter}"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-    </LinearLayout>
+    </RelativeLayout>
 </layout>
